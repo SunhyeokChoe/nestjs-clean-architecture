@@ -1,6 +1,6 @@
-import { UserRole } from '@core/common/enums/UserEnums';
-import { User } from '@core/domain/user/entity/User';
-import { Exclude, Expose, plainToClass } from 'class-transformer';
+import { UserRole } from '@core/common/enums/UserEnums'
+import { User } from '@core/domain/user/entity/User'
+import { Exclude, Expose, plainToClass } from 'class-transformer'
 
 @Exclude()
 export class UserUseCaseDto {
@@ -21,11 +21,11 @@ export class UserUseCaseDto {
   public role: UserRole;
   
   public static newFromUser(user: User): UserUseCaseDto {
-    return plainToClass(UserUseCaseDto, user);
+    return plainToClass(UserUseCaseDto, user)
   }
   
   public static newListFromUsers(users: User[]): UserUseCaseDto[] {
-    return users.map(user => this.newFromUser(user));
+    return users.map(user => this.newFromUser(user))
   }
   
 }

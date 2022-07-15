@@ -1,10 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDirs": [
-      "./src",
-      "./test"
-    ],
+    "rootDirs": ["./src", "./test"],
     "baseUrl": "./",
     "paths": {
       "@core/*": ["src/core/*"],
@@ -14,14 +11,8 @@
     },
     "target": "ES2020",
     "module": "commonjs",
-    "lib": [
-      "ES2020"
-    ],
-    "types": [
-      "reflect-metadata",
-      "jest",
-      "node"
-    ],
+    "lib": ["ES2020"],
+    "types": ["reflect-metadata", "jest", "node"],
     "alwaysStrict": true,
     "strict": true,
     "strictPropertyInitialization": false,
@@ -32,8 +23,5 @@
     "removeComments": true,
     "sourceMap": true
   },
-  "include": [
-    "./src/**/*.ts",
-    "./test/**/*.ts"
-  ]
+  "include": ["./src/**/*.ts", "./test/**/*.ts"]
 }

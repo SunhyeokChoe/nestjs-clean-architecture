@@ -9,27 +9,33 @@
     "node": true,
     "jest": true
   },
-  "plugins": [
-    "@typescript-eslint"
-  ],
+  "plugins": ["@typescript-eslint"],
   "extends": [
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
     "quotes": ["error", "single"],
-    "indent": ["error", 2, {
-      "MemberExpression": 1
-    }],
-    "@typescript-eslint/typedef": ["error", {
-      "memberVariableDeclaration": true,
-      "propertyDeclaration": true,
-      "variableDeclaration": true,
-      "variableDeclarationIgnoreFunction": true,
-      "arrowParameter": false
-    }],
+    "indent": [
+      "error",
+      2,
+      {
+        "MemberExpression": 1
+      }
+    ],
+    "@typescript-eslint/typedef": [
+      "error",
+      {
+        "memberVariableDeclaration": true,
+        "propertyDeclaration": true,
+        "variableDeclaration": true,
+        "variableDeclarationIgnoreFunction": true,
+        "arrowParameter": false
+      }
+    ],
     "@typescript-eslint/no-empty-interface": "off",
     "@typescript-eslint/no-inferrable-types": "off",
-    "@typescript-eslint/semi": ["error", "always"]
+    "semi": ["error", "never"],
+    "@typescript-eslint/semi": "off"
   }
 }

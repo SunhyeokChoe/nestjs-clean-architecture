@@ -1,4 +1,4 @@
-import { UserRole } from '@core/common/enums/UserEnums';
+import { UserRole } from '@core/common/enums/UserEnums'
 
 export class GetUserPreviewQueryResult {
   
@@ -9,13 +9,13 @@ export class GetUserPreviewQueryResult {
   public readonly role: UserRole;
   
   constructor(id: string, name: string, role: UserRole) {
-    this.id = id;
-    this.name = name;
-    this.role = role;
+    this.id = id
+    this.name = name
+    this.role = role
   }
   
   public static new(id: string, name: string, role: UserRole): GetUserPreviewQueryResult {
-    return new GetUserPreviewQueryResult(id, name, role);
+    return new GetUserPreviewQueryResult(id, name, role)
   }
   
 }

@@ -1,11 +1,11 @@
-import { MigrationInterface, QueryRunner } from 'typeorm';
+import { MigrationInterface, QueryRunner } from 'typeorm'
 
 export class CreateUserTable1594856827930 implements MigrationInterface {
   
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
       CREATE TYPE USER_ROLE_ENUM as ENUM ('ADMIN', 'AUTHOR', 'GUEST');
-    `);
+    `)
     
     await queryRunner.query(`
       CREATE TABLE public."user"(
@@ -19,12 +19,12 @@ export class CreateUserTable1594856827930 implements MigrationInterface {
         "editedAt"  TIMESTAMP WITH TIME ZONE NULL,
         "removedAt" TIMESTAMP WITH TIME ZONE NULL
       );
-    `);
+    `)
   }
   
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query('DROP TABLE public."user";');
-    await queryRunner.query('DROP TYPE USER_ROLE_ENUM;');
+    await queryRunner.query('DROP TABLE public."user";')
+    await queryRunner.query('DROP TYPE USER_ROLE_ENUM;')
   }
   
 }

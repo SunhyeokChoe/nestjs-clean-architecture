@@ -1,27 +1,27 @@
-import { HttpAuth } from '@application/api/http-rest/auth/decorator/HttpAuth';
-import { HttpUser } from '@application/api/http-rest/auth/decorator/HttpUser';
-import { HttpRequestWithUser, HttpUserPayload } from '@application/api/http-rest/auth/type/HttpAuthTypes';
-import { HttpRestApiModelCreateMediaBody } from '@application/api/http-rest/controller/documentation/media/HttpRestApiModelCreateMediaBody';
-import { HttpRestApiModelCreateMediaQuery } from '@application/api/http-rest/controller/documentation/media/HttpRestApiModelCreateMediaQuery';
-import { HttpRestApiModelEditMediaBody } from '@application/api/http-rest/controller/documentation/media/HttpRestApiModelEditMediaBody';
-import { HttpRestApiResponseMedia } from '@application/api/http-rest/controller/documentation/media/HttpRestApiResponseMedia';
-import { HttpRestApiResponseMediaList } from '@application/api/http-rest/controller/documentation/media/HttpRestApiResponseMediaList';
-import { CoreApiResponse } from '@core/common/api/CoreApiResponse';
-import { MediaType } from '@core/common/enums/MediaEnums';
-import { UserRole } from '@core/common/enums/UserEnums';
-import { MediaDITokens } from '@core/domain/media/di/MediaDITokens';
-import { CreateMediaUseCase } from '@core/domain/media/usecase/CreateMediaUseCase';
-import { MediaUseCaseDto } from '@core/domain/media/usecase/dto/MediaUseCaseDto';
-import { EditMediaUseCase } from '@core/domain/media/usecase/EditMediaUseCase';
-import { GetMediaListUseCase } from '@core/domain/media/usecase/GetMediaListUseCase';
-import { GetMediaUseCase } from '@core/domain/media/usecase/GetMediaUseCase';
-import { RemoveMediaUseCase } from '@core/domain/media/usecase/RemoveMediaUseCase';
-import { CreateMediaAdapter } from '@infrastructure/adapter/usecase/media/CreateMediaAdapter';
-import { EditMediaAdapter } from '@infrastructure/adapter/usecase/media/EditMediaAdapter';
-import { GetMediaAdapter } from '@infrastructure/adapter/usecase/media/GetMediaAdapter';
-import { GetMediaListAdapter } from '@infrastructure/adapter/usecase/media/GetMediaListAdapter';
-import { RemoveMediaAdapter } from '@infrastructure/adapter/usecase/media/RemoveMediaAdapter';
-import { FileStorageConfig } from '@infrastructure/config/FileStorageConfig';
+import { HttpAuth } from '@application/api/http-rest/auth/decorator/HttpAuth'
+import { HttpUser } from '@application/api/http-rest/auth/decorator/HttpUser'
+import { HttpRequestWithUser, HttpUserPayload } from '@application/api/http-rest/auth/type/HttpAuthTypes'
+import { HttpRestApiModelCreateMediaBody } from '@application/api/http-rest/controller/documentation/media/HttpRestApiModelCreateMediaBody'
+import { HttpRestApiModelCreateMediaQuery } from '@application/api/http-rest/controller/documentation/media/HttpRestApiModelCreateMediaQuery'
+import { HttpRestApiModelEditMediaBody } from '@application/api/http-rest/controller/documentation/media/HttpRestApiModelEditMediaBody'
+import { HttpRestApiResponseMedia } from '@application/api/http-rest/controller/documentation/media/HttpRestApiResponseMedia'
+import { HttpRestApiResponseMediaList } from '@application/api/http-rest/controller/documentation/media/HttpRestApiResponseMediaList'
+import { CoreApiResponse } from '@core/common/api/CoreApiResponse'
+import { MediaType } from '@core/common/enums/MediaEnums'
+import { UserRole } from '@core/common/enums/UserEnums'
+import { MediaDITokens } from '@core/domain/media/di/MediaDITokens'
+import { CreateMediaUseCase } from '@core/domain/media/usecase/CreateMediaUseCase'
+import { MediaUseCaseDto } from '@core/domain/media/usecase/dto/MediaUseCaseDto'
+import { EditMediaUseCase } from '@core/domain/media/usecase/EditMediaUseCase'
+import { GetMediaListUseCase } from '@core/domain/media/usecase/GetMediaListUseCase'
+import { GetMediaUseCase } from '@core/domain/media/usecase/GetMediaUseCase'
+import { RemoveMediaUseCase } from '@core/domain/media/usecase/RemoveMediaUseCase'
+import { CreateMediaAdapter } from '@infrastructure/adapter/usecase/media/CreateMediaAdapter'
+import { EditMediaAdapter } from '@infrastructure/adapter/usecase/media/EditMediaAdapter'
+import { GetMediaAdapter } from '@infrastructure/adapter/usecase/media/GetMediaAdapter'
+import { GetMediaListAdapter } from '@infrastructure/adapter/usecase/media/GetMediaListAdapter'
+import { RemoveMediaAdapter } from '@infrastructure/adapter/usecase/media/RemoveMediaAdapter'
+import { FileStorageConfig } from '@infrastructure/config/FileStorageConfig'
 import {
   Body,
   Controller,
@@ -37,11 +37,11 @@ import {
   Req,
   UploadedFile,
   UseInterceptors
-} from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBearerAuth, ApiBody, ApiConsumes, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { parse } from 'path';
-import { resolve } from 'url';
+} from '@nestjs/common'
+import { FileInterceptor } from '@nestjs/platform-express'
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger'
+import { parse } from 'path'
+import { resolve } from 'url'
 
 @Controller('medias')
 @ApiTags('medias')
@@ -86,12 +86,12 @@ export class MediaController {
       name      : query.name || parse(file.originalname).name,
       type      : query.type,
       file      : file.buffer,
-    });
+    })
     
-    const createdMedia: MediaUseCaseDto = await this.createMediaUseCase.execute(adapter);
-    this.setFileStorageBasePath([createdMedia]);
+    const createdMedia: MediaUseCaseDto = await this.createMediaUseCase.execute(adapter)
+    this.setFileStorageBasePath([createdMedia])
     
-    return CoreApiResponse.success(createdMedia);
+    return CoreApiResponse.success(createdMedia)
   }
   
   @Put(':mediaId')
@@ -111,12 +111,12 @@ export class MediaController {
       mediaId    : mediaId,
       executorId : user.id,
       name       : body.name,
-    });
+    })
     
-    const editedMedia: MediaUseCaseDto = await this.editMediaUseCase.execute(adapter);
-    this.setFileStorageBasePath([editedMedia]);
+    const editedMedia: MediaUseCaseDto = await this.editMediaUseCase.execute(adapter)
+    this.setFileStorageBasePath([editedMedia])
     
-    return CoreApiResponse.success(editedMedia);
+    return CoreApiResponse.success(editedMedia)
   }
   
   @Get()
@@ -125,11 +125,11 @@ export class MediaController {
   @ApiBearerAuth()
   @ApiResponse({status: HttpStatus.OK, type: HttpRestApiResponseMediaList})
   public async getMediaList(@HttpUser() user: HttpUserPayload): Promise<CoreApiResponse<MediaUseCaseDto[]>> {
-    const adapter: GetMediaListAdapter = await GetMediaListAdapter.new({executorId: user.id});
-    const medias: MediaUseCaseDto[] = await this.getMediaListUseCase.execute(adapter);
-    this.setFileStorageBasePath(medias);
+    const adapter: GetMediaListAdapter = await GetMediaListAdapter.new({executorId: user.id})
+    const medias: MediaUseCaseDto[] = await this.getMediaListUseCase.execute(adapter)
+    this.setFileStorageBasePath(medias)
     
-    return CoreApiResponse.success(medias);
+    return CoreApiResponse.success(medias)
   }
   
   @Get(':mediaId')
@@ -138,11 +138,11 @@ export class MediaController {
   @ApiBearerAuth()
   @ApiResponse({status: HttpStatus.OK, type: HttpRestApiResponseMedia})
   public async getMedia(@HttpUser() user: HttpUserPayload, @Param('mediaId') mediaId: string): Promise<CoreApiResponse<MediaUseCaseDto>> {
-    const adapter: GetMediaAdapter = await GetMediaAdapter.new({executorId: user.id, mediaId: mediaId,});
-    const media: MediaUseCaseDto = await this.getMediaUseCase.execute(adapter);
-    this.setFileStorageBasePath([media]);
+    const adapter: GetMediaAdapter = await GetMediaAdapter.new({executorId: user.id, mediaId: mediaId,})
+    const media: MediaUseCaseDto = await this.getMediaUseCase.execute(adapter)
+    this.setFileStorageBasePath([media])
     
-    return CoreApiResponse.success(media);
+    return CoreApiResponse.success(media)
   }
   
   @Delete(':mediaId')
@@ -151,14 +151,14 @@ export class MediaController {
   @ApiBearerAuth()
   @ApiResponse({status: HttpStatus.OK, type: HttpRestApiResponseMedia})
   public async removeMedia(@HttpUser() user: HttpUserPayload, @Param('mediaId') mediaId: string): Promise<CoreApiResponse<void>> {
-    const adapter: RemoveMediaAdapter = await RemoveMediaAdapter.new({executorId: user.id, mediaId: mediaId,});
-    await this.removeMediaUseCase.execute(adapter);
+    const adapter: RemoveMediaAdapter = await RemoveMediaAdapter.new({executorId: user.id, mediaId: mediaId,})
+    await this.removeMediaUseCase.execute(adapter)
     
-    return CoreApiResponse.success();
+    return CoreApiResponse.success()
   }
   
   private setFileStorageBasePath(medias: MediaUseCaseDto[]): void {
-    medias.forEach((media: MediaUseCaseDto) => media.url = resolve(FileStorageConfig.BASE_PATH, media.url));
+    medias.forEach((media: MediaUseCaseDto) => media.url = resolve(FileStorageConfig.BASE_PATH, media.url))
   }
   
 }

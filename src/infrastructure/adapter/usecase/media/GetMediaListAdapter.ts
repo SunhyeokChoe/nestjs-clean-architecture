@@ -1,7 +1,7 @@
-import { UseCaseValidatableAdapter } from '@core/common/adapter/usecase/UseCaseValidatableAdapter';
-import { GetMediaListPort } from '@core/domain/media/port/usecase/GetMediaListPort';
-import { Exclude, Expose, plainToClass } from 'class-transformer';
-import { IsUUID } from 'class-validator';
+import { UseCaseValidatableAdapter } from '@core/common/adapter/usecase/UseCaseValidatableAdapter'
+import { GetMediaListPort } from '@core/domain/media/port/usecase/GetMediaListPort'
+import { Exclude, Expose, plainToClass } from 'class-transformer'
+import { IsUUID } from 'class-validator'
 
 @Exclude()
 export class GetMediaListAdapter extends UseCaseValidatableAdapter implements GetMediaListPort {
@@ -11,10 +11,10 @@ export class GetMediaListAdapter extends UseCaseValidatableAdapter implements Ge
   public executorId: string;
   
   public static async new(payload: GetMediaListPort): Promise<GetMediaListAdapter> {
-    const adapter: GetMediaListAdapter = plainToClass(GetMediaListAdapter, payload);
-    await adapter.validate();
+    const adapter: GetMediaListAdapter = plainToClass(GetMediaListAdapter, payload)
+    await adapter.validate()
     
-    return adapter;
+    return adapter
   }
   
 }

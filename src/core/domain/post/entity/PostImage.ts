@@ -1,5 +1,5 @@
-import { Entity } from '@core/common/entity/Entity';
-import { IsString } from 'class-validator';
+import { Entity } from '@core/common/entity/Entity'
+import { IsString } from 'class-validator'
 
 export class PostImage extends Entity<string> {
   
@@ -7,21 +7,21 @@ export class PostImage extends Entity<string> {
   private readonly relativePath: string;
   
   constructor(id: string, relativePath: string) {
-    super();
+    super()
     
-    this.id = id;
-    this.relativePath = relativePath;
+    this.id = id
+    this.relativePath = relativePath
   }
   
   public getRelativePath(): string {
-    return this.relativePath;
+    return this.relativePath
   }
   
   public static async new(id: string, relativePath: string): Promise<PostImage> {
-    const postImage: PostImage = new PostImage(id, relativePath);
-    await postImage.validate();
+    const postImage: PostImage = new PostImage(id, relativePath)
+    await postImage.validate()
     
-    return postImage;
+    return postImage
   }
   
 }

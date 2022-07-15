@@ -1,1 +1,1 @@
-export const TypeOrmDirectory: string = __dirname;
+export const TypeOrmDirectory: string = __dirname

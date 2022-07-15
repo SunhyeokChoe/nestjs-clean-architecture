@@ -1,27 +1,27 @@
-import { User } from '@core/domain/user/entity/User';
-import { TypeOrmUser } from '@infrastructure/adapter/persistence/typeorm/entity/user/TypeOrmUser';
+import { User } from '@core/domain/user/entity/User'
+import { TypeOrmUser } from '@infrastructure/adapter/persistence/typeorm/entity/user/TypeOrmUser'
 
 export class TypeOrmUserMapper {
   
   public static toOrmEntity(domainUser: User): TypeOrmUser {
-    const ormUser: TypeOrmUser = new TypeOrmUser();
+    const ormUser: TypeOrmUser = new TypeOrmUser()
     
-    ormUser.id        = domainUser.getId();
-    ormUser.firstName = domainUser.getFirstName();
-    ormUser.lastName  = domainUser.getLastName();
-    ormUser.email     = domainUser.getEmail();
-    ormUser.role      = domainUser.getRole();
-    ormUser.password  = domainUser.getPassword();
+    ormUser.id        = domainUser.getId()
+    ormUser.firstName = domainUser.getFirstName()
+    ormUser.lastName  = domainUser.getLastName()
+    ormUser.email     = domainUser.getEmail()
+    ormUser.role      = domainUser.getRole()
+    ormUser.password  = domainUser.getPassword()
     
-    ormUser.createdAt = domainUser.getCreatedAt();
-    ormUser.editedAt  = domainUser.getEditedAt() as Date;
-    ormUser.removedAt = domainUser.getRemovedAt() as Date;
+    ormUser.createdAt = domainUser.getCreatedAt()
+    ormUser.editedAt  = domainUser.getEditedAt() as Date
+    ormUser.removedAt = domainUser.getRemovedAt() as Date
     
-    return ormUser;
+    return ormUser
   }
   
   public static toOrmEntities(domainUsers: User[]): TypeOrmUser[] {
-    return domainUsers.map(domainUser => this.toOrmEntity(domainUser));
+    return domainUsers.map(domainUser => this.toOrmEntity(domainUser))
   }
   
   public static toDomainEntity(ormUser: TypeOrmUser): User {
@@ -35,13 +35,13 @@ export class TypeOrmUserMapper {
       createdAt : ormUser.createdAt,
       editedAt  : ormUser.editedAt,
       removedAt : ormUser.removedAt,
-    });
+    })
     
-    return domainUser;
+    return domainUser
   }
   
   public static toDomainEntities(ormUsers: TypeOrmUser[]): User[] {
-    return ormUsers.map(ormUser => this.toDomainEntity(ormUser));
+    return ormUsers.map(ormUser => this.toDomainEntity(ormUser))
   }
   
 }

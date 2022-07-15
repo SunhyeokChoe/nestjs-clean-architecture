@@ -1,5 +1,5 @@
 {
-  "name": "typescript-clean-architecture",
+  "name": "nestjs-clean-architecture",
   "version": "1.0.0",
   "description": "It is my attempt to create Clean Architecture based application in Typescript",
   "main": "index.js",
@@ -12,28 +12,29 @@
     "test:cov": "jest --config jest.json --coverage",
     "lib:check": "ncu",
     "lib:upgrade": "ncu -u && npm install",
-    "lint": "eslint '{src,test}/**/*.ts'",
-    "lint:fix": "eslint --fix '{src,test}/**/*.ts'",
+    "lint": "eslint \"{src,test}/**/*.ts\"",
+    "lint:fix": "eslint --fix \"{src,test}/**/*.ts\"",
     "migration:create": "node --require ts-node/register ./node_modules/typeorm/cli.js migration:create -n",
     "migration:revert": "node --require ts-node/register ./node_modules/typeorm/cli.js migration:revert"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pvarentsov/typescript-clean-architecture.git"
+    "url": "git+https://github.com/SunhyeokChoe/nestjs-clean-architecture.git"
   },
   "keywords": [
     "clean-architecture",
-    "typescript"
+    "typescript",
+    "nestjs"
   ],
-  "author": "Pavel Varentsov (varentsovpavel@gmail.com)",
+  "author": "Sunhyeok Choe (hackerwreckers@gmail.com)",
   "license": "MIT",
   "engines": {
     "node": ">=14"
   },
   "bugs": {
-    "url": "https://github.com/pvarentsov/typescript-clean-architecture/issues"
+    "url": "https://github.com/SunhyeokChoe/nestjs-clean-architecture/issues"
   },
-  "homepage": "https://github.com/pvarentsov/typescript-clean-architecture#readme",
+  "homepage": "https://github.com/SunhyeokChoe/nestjs-clean-architecture#readme",
   "devDependencies": {
     "@nestjs/testing": "8.0.6",
     "@types/bcryptjs": "2.4.2",

@@ -1,11 +1,11 @@
-import { MigrationInterface, QueryRunner } from 'typeorm';
+import { MigrationInterface, QueryRunner } from 'typeorm'
 
 export class CreateMediaTable1594769206476 implements MigrationInterface {
   
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
         CREATE TYPE MEDIA_TYPE_ENUM as ENUM ('IMAGE');
-    `);
+    `)
     
     await queryRunner.query(`
       CREATE TABLE public."media"(
@@ -21,12 +21,12 @@ export class CreateMediaTable1594769206476 implements MigrationInterface {
         "editedAt"     TIMESTAMP WITH TIME ZONE NULL,
         "removedAt"    TIMESTAMP WITH TIME ZONE NULL
       );
-    `);
+    `)
   }
   
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query('DROP TABLE public."media";');
-    await queryRunner.query('DROP TYPE MEDIA_TYPE_ENUM;');
+    await queryRunner.query('DROP TABLE public."media";')
+    await queryRunner.query('DROP TYPE MEDIA_TYPE_ENUM;')
   }
 
 }

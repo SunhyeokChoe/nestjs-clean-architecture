@@ -1,7 +1,7 @@
-import { HttpRestApiModelPostImage } from '@application/api/http-rest/controller/documentation/post/HttpRestApiModelPostImage';
-import { HttpRestApiModelPostOwner } from '@application/api/http-rest/controller/documentation/post/HttpRestApiModelPostOwner';
-import { PostStatus } from '@core/common/enums/PostEnums';
-import { ApiProperty } from '@nestjs/swagger';
+import { HttpRestApiModelPostImage } from '@application/api/http-rest/controller/documentation/post/HttpRestApiModelPostImage'
+import { HttpRestApiModelPostOwner } from '@application/api/http-rest/controller/documentation/post/HttpRestApiModelPostOwner'
+import { PostStatus } from '@core/common/enums/PostEnums'
+import { ApiProperty } from '@nestjs/swagger'
 
 export class HttpRestApiModelPost {
   

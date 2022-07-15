@@ -1,4 +1,4 @@
-import { get } from 'env-var';
+import { get } from 'env-var'
 
 export class DatabaseConfig {
   

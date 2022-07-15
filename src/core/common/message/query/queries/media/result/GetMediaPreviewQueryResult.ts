@@ -1,4 +1,4 @@
-import { MediaType } from '@core/common/enums/MediaEnums';
+import { MediaType } from '@core/common/enums/MediaEnums'
 
 export class GetMediaPreviewQueryResult {
   
@@ -9,13 +9,13 @@ export class GetMediaPreviewQueryResult {
   public readonly relativePath: string;
   
   constructor(id: string, type: MediaType, relativePath: string) {
-    this.id = id;
-    this.type = type;
-    this.relativePath = relativePath;
+    this.id = id
+    this.type = type
+    this.relativePath = relativePath
   }
   
   public static new(id: string, type: MediaType, relativePath: string): GetMediaPreviewQueryResult {
-    return new GetMediaPreviewQueryResult(id, type, relativePath);
+    return new GetMediaPreviewQueryResult(id, type, relativePath)
   }
   
 }

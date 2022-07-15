@@ -1,11 +1,11 @@
-import { MigrationInterface, QueryRunner } from 'typeorm';
+import { MigrationInterface, QueryRunner } from 'typeorm'
 
 export class CreatePostTable1594770165389 implements MigrationInterface {
   
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
       CREATE TYPE POST_STATUS_ENUM as ENUM ('DRAFT', 'PUBLISHED');
-    `);
+    `)
         
     await queryRunner.query(`
       CREATE TABLE public."post"(
@@ -20,12 +20,12 @@ export class CreatePostTable1594770165389 implements MigrationInterface {
         "publishedAt" TIMESTAMP WITH TIME ZONE NULL,
         "removedAt"   TIMESTAMP WITH TIME ZONE NULL
       );
-    `);
+    `)
   }
     
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query('DROP TABLE public."post";');
-    await queryRunner.query('DROP TYPE POST_STATUS_ENUM;');
+    await queryRunner.query('DROP TABLE public."post";')
+    await queryRunner.query('DROP TYPE POST_STATUS_ENUM;')
   }
 
 }

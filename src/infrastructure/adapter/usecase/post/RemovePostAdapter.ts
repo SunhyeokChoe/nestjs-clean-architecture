@@ -1,7 +1,7 @@
-import { UseCaseValidatableAdapter } from '@core/common/adapter/usecase/UseCaseValidatableAdapter';
-import { RemovePostPort } from '@core/domain/post/port/usecase/RemovePostPort';
-import { Exclude, Expose, plainToClass } from 'class-transformer';
-import { IsUUID } from 'class-validator';
+import { UseCaseValidatableAdapter } from '@core/common/adapter/usecase/UseCaseValidatableAdapter'
+import { RemovePostPort } from '@core/domain/post/port/usecase/RemovePostPort'
+import { Exclude, Expose, plainToClass } from 'class-transformer'
+import { IsUUID } from 'class-validator'
 
 @Exclude()
 export class RemovePostAdapter extends UseCaseValidatableAdapter implements RemovePostPort {
@@ -15,10 +15,10 @@ export class RemovePostAdapter extends UseCaseValidatableAdapter implements Remo
   public postId: string;
   
   public static async new(payload: RemovePostPort): Promise<RemovePostAdapter> {
-    const adapter: RemovePostAdapter = plainToClass(RemovePostAdapter, payload);
-    await adapter.validate();
+    const adapter: RemovePostAdapter = plainToClass(RemovePostAdapter, payload)
+    await adapter.validate()
     
-    return adapter;
+    return adapter
   }
   
 }

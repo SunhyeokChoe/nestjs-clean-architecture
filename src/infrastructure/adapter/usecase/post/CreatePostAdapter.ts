@@ -1,7 +1,7 @@
-import { UseCaseValidatableAdapter } from '@core/common/adapter/usecase/UseCaseValidatableAdapter';
-import { CreatePostPort } from '@core/domain/post/port/usecase/CreatePostPort';
-import { Exclude, Expose, plainToClass } from 'class-transformer';
-import { IsOptional, IsString, IsUUID } from 'class-validator';
+import { UseCaseValidatableAdapter } from '@core/common/adapter/usecase/UseCaseValidatableAdapter'
+import { CreatePostPort } from '@core/domain/post/port/usecase/CreatePostPort'
+import { Exclude, Expose, plainToClass } from 'class-transformer'
+import { IsOptional, IsString, IsUUID } from 'class-validator'
 
 @Exclude()
 export class CreatePostAdapter extends UseCaseValidatableAdapter implements CreatePostPort {
@@ -25,10 +25,10 @@ export class CreatePostAdapter extends UseCaseValidatableAdapter implements Crea
   public content?: string;
   
   public static async new(payload: CreatePostPort): Promise<CreatePostAdapter> {
-    const adapter: CreatePostAdapter = plainToClass(CreatePostAdapter, payload);
-    await adapter.validate();
+    const adapter: CreatePostAdapter = plainToClass(CreatePostAdapter, payload)
+    await adapter.validate()
     
-    return adapter;
+    return adapter
   }
   
 }

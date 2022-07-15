@@ -1,4 +1,4 @@
-import { MediaType } from '@core/common/enums/MediaEnums';
+import { MediaType } from '@core/common/enums/MediaEnums'
 
 export class MediaRemovedEvent {
   
@@ -9,13 +9,13 @@ export class MediaRemovedEvent {
   public readonly type: MediaType;
   
   private constructor(mediaId: string, ownerId: string, type: MediaType) {
-    this.mediaId = mediaId;
-    this.ownerId = ownerId;
-    this.type = type;
+    this.mediaId = mediaId
+    this.ownerId = ownerId
+    this.type = type
   }
   
   public static new(mediaId: string, ownerId: string, type: MediaType): MediaRemovedEvent {
-    return new MediaRemovedEvent(mediaId, ownerId, type);
+    return new MediaRemovedEvent(mediaId, ownerId, type)
   }
   
 }

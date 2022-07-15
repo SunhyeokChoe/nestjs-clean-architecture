@@ -1,7 +1,7 @@
-import { Nullable } from '@core/common/type/CommonTypes';
-import { ValueObject } from '@core/common/value-object/ValueObject';
-import { CreateFileMetadataValueObjectPayload } from '@core/domain/media/value-object/type/CreateFileMetadataValueObjectPayload';
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { Nullable } from '@core/common/type/CommonTypes'
+import { ValueObject } from '@core/common/value-object/ValueObject'
+import { CreateFileMetadataValueObjectPayload } from '@core/domain/media/value-object/type/CreateFileMetadataValueObjectPayload'
+import { IsNumber, IsOptional, IsString } from 'class-validator'
 
 export class FileMetadata extends ValueObject {
   
@@ -21,19 +21,19 @@ export class FileMetadata extends ValueObject {
   public readonly mimetype: Nullable<string>;
   
   constructor(payload: CreateFileMetadataValueObjectPayload) {
-    super();
+    super()
   
-    this.relativePath = payload.relativePath;
-    this.size         = payload.size || null;
-    this.ext          = payload.ext || null;
-    this.mimetype     = payload.mimetype || null;
+    this.relativePath = payload.relativePath
+    this.size         = payload.size || null
+    this.ext          = payload.ext || null
+    this.mimetype     = payload.mimetype || null
   }
   
   public static async new(payload: CreateFileMetadataValueObjectPayload): Promise<FileMetadata> {
-    const fileMetadata: FileMetadata = new FileMetadata(payload);
-    await fileMetadata.validate();
+    const fileMetadata: FileMetadata = new FileMetadata(payload)
+    await fileMetadata.validate()
     
-    return fileMetadata;
+    return fileMetadata
   }
   
 }

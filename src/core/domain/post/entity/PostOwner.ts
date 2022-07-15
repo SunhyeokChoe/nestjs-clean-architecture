@@ -1,6 +1,6 @@
-import { Entity } from '@core/common/entity/Entity';
-import { UserRole } from '@core/common/enums/UserEnums';
-import { IsEnum, IsString } from 'class-validator';
+import { Entity } from '@core/common/entity/Entity'
+import { UserRole } from '@core/common/enums/UserEnums'
+import { IsEnum, IsString } from 'class-validator'
 
 export class PostOwner extends Entity<string> {
   
@@ -11,26 +11,26 @@ export class PostOwner extends Entity<string> {
   private readonly role: UserRole;
   
   constructor(id: string, name: string, role: UserRole) {
-    super();
+    super()
     
-    this.id = id;
-    this.name = name;
-    this.role = role;
+    this.id = id
+    this.name = name
+    this.role = role
   }
   
   public getName(): string {
-    return this.name;
+    return this.name
   }
   
   public getRole(): UserRole {
-    return this.role;
+    return this.role
   }
   
   public static async new(id: string, name: string, role: UserRole): Promise<PostOwner> {
-    const postOwner: PostOwner = new PostOwner(id, name, role);
-    await postOwner.validate();
+    const postOwner: PostOwner = new PostOwner(id, name, role)
+    await postOwner.validate()
     
-    return postOwner;
+    return postOwner
   }
   
 }

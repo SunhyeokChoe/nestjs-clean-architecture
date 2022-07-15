@@ -1,4 +1,4 @@
-import { RepositoryFindOptions } from '../../../../persistence/RepositoryOptions';
+import { RepositoryFindOptions } from '../../../../persistence/RepositoryOptions'
 
 export class GetUserPreviewQuery {
   
@@ -7,12 +7,12 @@ export class GetUserPreviewQuery {
   options?: RepositoryFindOptions;
   
   private constructor(by: {id: string}, options?: RepositoryFindOptions) {
-    this.by = by;
-    this.options = options;
+    this.by = by
+    this.options = options
   }
   
   public static new(by: {id: string}, options?: RepositoryFindOptions): GetUserPreviewQuery {
-    return new GetUserPreviewQuery(by, options);
+    return new GetUserPreviewQuery(by, options)
   }
   
 }
