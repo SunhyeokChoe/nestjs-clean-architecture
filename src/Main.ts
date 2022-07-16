@@ -1,6 +1,5 @@
 import 'module-alias/register'
 import { ServerApplication } from '@application/ServerApplication'
-
 ;(async (): Promise<void> => {
   await runApplication()
 })()

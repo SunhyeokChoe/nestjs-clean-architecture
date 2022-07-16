@@ -1,7 +1,6 @@
 version: '3.2'
 
 services:
-
   postgresql_local:
     build: docker/postgres/.
     env_file:

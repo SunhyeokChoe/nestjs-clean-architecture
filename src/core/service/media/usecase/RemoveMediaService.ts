@@ -30,6 +30,8 @@ export class RemoveMediaService implements RemoveMediaUseCase {
     )
 
     await this.mediaRepository.removeMedia(media)
+
+    // ? 미디어가 삭제 되었음을 알리는 이벤트 발송
     await this.eventBus.sendEvent(
       MediaRemovedEvent.new(media.getId(), media.getOwnerId(), media.getType()),
     )

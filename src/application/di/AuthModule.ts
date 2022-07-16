@@ -9,22 +9,17 @@ import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
 
 @Module({
-  controllers: [
-    AuthController
-  ],
+  controllers: [AuthController],
   imports: [
     PassportModule,
     JwtModule.register({
       secret: ApiServerConfig.ACCESS_TOKEN_SECRET,
-      signOptions: {expiresIn: `${ApiServerConfig.ACCESS_TOKEN_TTL_IN_MINUTES}m`},
+      signOptions: {
+        expiresIn: `${ApiServerConfig.ACCESS_TOKEN_TTL_IN_MINUTES}m`,
+      },
     }),
     UserModule,
   ],
-  providers: [
-    HttpAuthService,
-    HttpLocalStrategy,
-    HttpJwtStrategy
-  ],
+  providers: [HttpAuthService, HttpLocalStrategy, HttpJwtStrategy],
 })
 export class AuthModule {}
-
