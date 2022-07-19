@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3.7'
 
 services:
   postgresql_test:
@@ -13,7 +13,7 @@ services:
       - pg_data_test:/var/lib/postgresql/data
 
   minio_test:
-    image: minio/minio
+    image: bitnami/minio:latest
     entrypoint: sh
     command: -c 'mkdir -p /export/images && /usr/bin/minio server /export'
     env_file:

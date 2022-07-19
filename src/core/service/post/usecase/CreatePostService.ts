@@ -16,35 +16,33 @@ import { CreatePostUseCase } from '@core/domain/post/usecase/CreatePostUseCase'
 import { PostUseCaseDto } from '@core/domain/post/usecase/dto/PostUseCaseDto'
 
 export class CreatePostService implements CreatePostUseCase {
-  
-  constructor(
-    private readonly postRepository: PostRepositoryPort,
-    private readonly queryBus: QueryBusPort,
-  ) {}
-  
+  constructor(private readonly postRepository: PostRepositoryPort, private readonly queryBus: QueryBusPort) {}
+
   public async execute(payload: CreatePostPort): Promise<PostUseCaseDto> {
     const postOwner: GetUserPreviewQueryResult = CoreAssert.notEmpty(
-      await this.queryBus.sendQuery(GetUserPreviewQuery.new({id: payload.executorId})),
-      Exception.new({code: Code.ENTITY_NOT_FOUND_ERROR, overrideMessage: 'Post owner not found.'})
+      await this.queryBus.sendQuery(GetUserPreviewQuery.new({ id: payload.executorId })),
+      Exception.new({ code: Code.ENTITY_NOT_FOUND_ERROR, overrideMessage: 'Post owner not found.' }),
     )
-    
+
     const postImage: Optional<GetMediaPreviewQueryResult> = payload.imageId
-      ? await this.queryBus.sendQuery(GetMediaPreviewQuery.new({id: payload.imageId, ownerId: payload.executorId}))
+      ? await this.queryBus.sendQuery(GetMediaPreviewQuery.new({ id: payload.imageId, ownerId: payload.executorId }))
       : undefined
-    
-    const imageNotFound: boolean = !! (!postImage && payload.imageId)
-    CoreAssert.isFalse(imageNotFound, Exception.new({code: Code.ENTITY_NOT_FOUND_ERROR, overrideMessage: 'Post image not found.'}))
-    
+
+    const imageNotFound: boolean = !!(!postImage && payload.imageId)
+    CoreAssert.isFalse(
+      imageNotFound,
+      Exception.new({ code: Code.ENTITY_NOT_FOUND_ERROR, overrideMessage: 'Post image not found.' }),
+    )
+
     const post: Post = await Post.new({
-      owner  : await PostOwner.new(postOwner.id, postOwner.name, postOwner.role),
-      image  : postImage ? await PostImage.new(postImage.id, postImage.relativePath) : null,
-      title  : payload.title,
+      owner: await PostOwner.new(postOwner.id, postOwner.name, postOwner.role),
+      image: postImage ? await PostImage.new(postImage.id, postImage.relativePath) : null,
+      title: payload.title,
       content: payload.content,
     })
-    
+
     await this.postRepository.addPost(post)
-    
+
     return PostUseCaseDto.newFromPost(post)
   }
-  
 }

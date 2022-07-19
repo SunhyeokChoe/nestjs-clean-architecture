@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3.7'
 
 services:
   postgresql_local:
@@ -13,9 +13,9 @@ services:
       - pg_data_local:/var/lib/postgresql/data
 
   minio_local:
-    image: minio/minio
-    entrypoint: sh
-    command: -c 'mkdir -p /export/images && /usr/bin/minio server /export'
+    image: docker.io/bitnami/minio:2022
+    # entrypoint: sh
+    # command: -c 'mkdir -p /tmp/export/images && pwd && /var/lib/minio server /tmp/export'
     env_file:
       - env/local.minio.env
     ports:
