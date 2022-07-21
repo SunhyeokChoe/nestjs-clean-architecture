@@ -8,18 +8,14 @@ import { UserUseCaseDto } from '@core/domain/user/usecase/dto/UserUseCaseDto'
 import { GetUserUseCase } from '@core/domain/user/usecase/GetUserUseCase'
 
 export class GetUserService implements GetUserUseCase {
-  
-  constructor(
-    private readonly userRepository: UserRepositoryPort,
-  ) {}
-  
+  constructor(private readonly userRepository: UserRepositoryPort) {}
+
   public async execute(payload: GetUserPort): Promise<UserUseCaseDto> {
-    const user: Optional<User> = await this.userRepository.findUser({id: payload.userId})
+    const user: Optional<User> = await this.userRepository.findUser({ id: payload.userId })
     if (!user) {
-      throw Exception.new({code: Code.ENTITY_NOT_FOUND_ERROR, overrideMessage: 'User not found.'})
+      throw Exception.new({ code: Code.ENTITY_NOT_FOUND_ERROR, overrideMessage: 'User not found.' })
     }
-    
+
     return UserUseCaseDto.newFromUser(user)
   }
-  
 }

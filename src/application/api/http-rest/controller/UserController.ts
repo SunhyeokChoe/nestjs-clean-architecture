@@ -17,44 +17,42 @@ import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger'
 @Controller('users')
 @ApiTags('users')
 export class UserController {
-  
   constructor(
     @Inject(UserDITokens.CreateUserUseCase)
     private readonly createUserUseCase: CreateUserUseCase,
-    
+
     @Inject(UserDITokens.GetUserUseCase)
     private readonly getUserUseCase: GetUserUseCase,
   ) {}
-  
+
   @Post('account')
   @HttpCode(HttpStatus.OK)
   @ApiBearerAuth()
-  @ApiBody({type: HttpRestApiModelCreateUserBody})
-  @ApiResponse({status: HttpStatus.OK, type: HttpRestApiResponseUser})
+  @ApiBody({ type: HttpRestApiModelCreateUserBody })
+  @ApiResponse({ status: HttpStatus.OK, type: HttpRestApiResponseUser })
   public async createAccount(@Body() body: HttpRestApiModelCreateUserBody): Promise<CoreApiResponse<UserUseCaseDto>> {
     const adapter: CreateUserAdapter = await CreateUserAdapter.new({
-      firstName  : body.firstName,
-      lastName   : body.lastName,
-      email      : body.email,
-      role       : body.role,
-      password   : body.password
+      firstName: body.firstName,
+      lastName: body.lastName,
+      email: body.email,
+      role: body.role,
+      password: body.password,
     })
-    
+
     const createdUser: UserUseCaseDto = await this.createUserUseCase.execute(adapter)
-    
+
     return CoreApiResponse.success(createdUser)
   }
-  
+
   @Get('me')
   @HttpCode(HttpStatus.OK)
   @ApiBearerAuth()
   @HttpAuth(UserRole.AUTHOR, UserRole.ADMIN, UserRole.GUEST)
-  @ApiResponse({status: HttpStatus.OK, type: HttpRestApiResponseUser})
+  @ApiResponse({ status: HttpStatus.OK, type: HttpRestApiResponseUser })
   public async getMe(@HttpUser() httpUser: HttpUserPayload): Promise<CoreApiResponse<UserUseCaseDto>> {
-    const adapter: GetUserAdapter = await GetUserAdapter.new({userId: httpUser.id})
+    const adapter: GetUserAdapter = await GetUserAdapter.new({ userId: httpUser.id })
     const user: UserUseCaseDto = await this.getUserUseCase.execute(adapter)
-    
+
     return CoreApiResponse.success(user)
   }
-  
 }
