@@ -13,42 +13,40 @@ import { PostUseCaseDto } from '@core/domain/post/usecase/dto/PostUseCaseDto'
 import { EditPostUseCase } from '@core/domain/post/usecase/EditPostUseCase'
 
 export class EditPostService implements EditPostUseCase {
-  
-  constructor(
-    private readonly postRepository: PostRepositoryPort,
-    private readonly queryBus: QueryBusPort,
-  ) {}
-  
+  constructor(private readonly postRepository: PostRepositoryPort, private readonly queryBus: QueryBusPort) {}
+
   public async execute(payload: EditPostPort): Promise<PostUseCaseDto> {
     const post: Post = CoreAssert.notEmpty(
-      await this.postRepository.findPost({id: payload.postId}),
-      Exception.new({code: Code.ENTITY_NOT_FOUND_ERROR, overrideMessage: 'Post not found.'})
+      await this.postRepository.findPost({ id: payload.postId }),
+      Exception.new({ code: Code.ENTITY_NOT_FOUND_ERROR, overrideMessage: 'Post not found.' }),
     )
-  
+
     const hasAccess: boolean = payload.executorId === post.getOwner().getId()
-    CoreAssert.isTrue(hasAccess, Exception.new({code: Code.ACCESS_DENIED_ERROR}))
-    
+    CoreAssert.isTrue(hasAccess, Exception.new({ code: Code.ACCESS_DENIED_ERROR }))
+
     await post.edit({
       title: payload.title,
       image: await this.defineNewImage(payload, post),
-      content: payload.content
+      content: payload.content,
     })
-    
+
     await this.postRepository.updatePost(post)
-    
+
     return PostUseCaseDto.newFromPost(post)
   }
-  
-  /** ¯\_(ツ)_/¯ **/
+
   private async defineNewImage(payload: EditPostPort, post: Post): Promise<Optional<Nullable<PostImage>>> {
     let newPostImage: Optional<Nullable<PostImage>>
-    
-    const needUpdateImage: boolean = !! (payload.imageId && payload.imageId !== post.getImage()?.getId())
+
+    const needUpdateImage: boolean = !!(payload.imageId && payload.imageId !== post.getImage()?.getId())
     const needResetImage: boolean = payload.imageId === null
-    
+
     if (needUpdateImage) {
-      const query: GetMediaPreviewQuery = GetMediaPreviewQuery.new({id: payload.imageId, ownerId: payload.executorId})
-      const exception: Exception<void> = Exception.new({code: Code.ENTITY_NOT_FOUND_ERROR, overrideMessage: 'Post image not found.'})
+      const query: GetMediaPreviewQuery = GetMediaPreviewQuery.new({ id: payload.imageId, ownerId: payload.executorId })
+      const exception: Exception<void> = Exception.new({
+        code: Code.ENTITY_NOT_FOUND_ERROR,
+        overrideMessage: 'Post image not found.',
+      })
       const postImage: GetMediaPreviewQueryResult = CoreAssert.notEmpty(await this.queryBus.sendQuery(query), exception)
 
       newPostImage = await PostImage.new(postImage.id, postImage.relativePath)
@@ -56,8 +54,7 @@ export class EditPostService implements EditPostUseCase {
     if (needResetImage) {
       newPostImage = null
     }
-    
+
     return newPostImage
   }
-  
 }

@@ -1,12 +1,12 @@
 import { EventBusPort } from '@core/common/port/message/EventBusPort'
 import { Injectable } from '@nestjs/common'
-import { EventBus, ICommand } from '@nestjs/cqrs'
+import { EventBus, IEvent } from '@nestjs/cqrs'
 
 @Injectable()
 export class NestEventBusAdapter implements EventBusPort {
   constructor(private readonly eventBus: EventBus) {}
 
-  public async sendEvent<TEvent extends ICommand>(event: TEvent): Promise<void> {
+  public async sendEvent<TEvent extends IEvent>(event: TEvent): Promise<void> {
     return this.eventBus.publish(event)
   }
 }

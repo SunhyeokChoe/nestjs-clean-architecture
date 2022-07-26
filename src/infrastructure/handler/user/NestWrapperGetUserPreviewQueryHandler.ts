@@ -9,14 +9,12 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs'
 @Injectable()
 @QueryHandler(GetUserPreviewQuery)
 export class NestWrapperGetUserPreviewQueryHandler implements IQueryHandler {
-  
   constructor(
     @Inject(UserDITokens.GetUserPreviewQueryHandler)
-    private readonly handleService: GetUserPreviewQueryHandler
+    private readonly handleService: GetUserPreviewQueryHandler,
   ) {}
 
   public async execute(query: GetUserPreviewQuery): Promise<Optional<GetUserPreviewQueryResult>> {
     return this.handleService.handle(query)
   }
-  
 }

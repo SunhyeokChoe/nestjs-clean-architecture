@@ -9,24 +9,20 @@ import { PostUseCaseDto } from '@core/domain/post/usecase/dto/PostUseCaseDto'
 import { GetPostUseCase } from '@core/domain/post/usecase/GetPostUseCase'
 
 export class GetPostService implements GetPostUseCase {
-  
-  constructor(
-    private readonly postRepository: PostRepositoryPort,
-  ) {}
-  
+  constructor(private readonly postRepository: PostRepositoryPort) {}
+
   public async execute(payload: GetPostPort): Promise<PostUseCaseDto> {
     const post: Post = CoreAssert.notEmpty(
-      await this.postRepository.findPost({id: payload.postId}),
-      Exception.new({code: Code.ENTITY_NOT_FOUND_ERROR, overrideMessage: 'Post not found.'})
+      await this.postRepository.findPost({ id: payload.postId }),
+      Exception.new({ code: Code.ENTITY_NOT_FOUND_ERROR, overrideMessage: 'Post not found.' }),
     )
-  
+
     const hasAccess: boolean =
-      post.getStatus() === PostStatus.PUBLISHED
-      || (payload.executorId === post.getOwner().getId() && post.getStatus() === PostStatus.DRAFT)
-    
-    CoreAssert.isTrue(hasAccess, Exception.new({code: Code.ACCESS_DENIED_ERROR}))
-    
+      post.getStatus() === PostStatus.PUBLISHED ||
+      (payload.executorId === post.getOwner().getId() && post.getStatus() === PostStatus.DRAFT)
+
+    CoreAssert.isTrue(hasAccess, Exception.new({ code: Code.ACCESS_DENIED_ERROR }))
+
     return PostUseCaseDto.newFromPost(post)
   }
-  
 }
