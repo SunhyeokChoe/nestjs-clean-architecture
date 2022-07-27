@@ -10,19 +10,9 @@
     "jest": true
   },
   "plugins": ["@typescript-eslint"],
-  "extends": [
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
-  ],
+  "extends": ["plugin:@typescript-eslint/eslint-recommended", "plugin:@typescript-eslint/recommended"],
   "rules": {
     "quotes": ["error", "single"],
-    "indent": [
-      "error",
-      2,
-      {
-        "MemberExpression": 1
-      }
-    ],
     "@typescript-eslint/typedef": [
       "error",
       {
