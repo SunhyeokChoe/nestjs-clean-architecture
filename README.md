@@ -131,7 +131,7 @@ UseCase 구현체와 Command / Query / Event handler의 구현체를 갖는다.
     NestWrapper{비즈니스*로직*이름}{C/Q/E}Handler.handle(…) →
     Handle{비즈니스*로직*이름}{C/Q/E}Service.handle(…)
   - Usecase  
-    CreateUserService, GetUserService, CreatePostService 등 각 서비스는 하나의 행위만 담당한다. 하나의 컴포넌트를 변경해야 할 때 변경하는 이유가 오직 하나로 좁혀지므로 단일 책임 원칙을 지키는 형태가 된다.
+    CreateUserService, GetUserService, CreatePostService 등 각 서비스는 하나의 행위만 담당한다. 따라서 하나의 컴포넌트를 변경해야 할 때 변경하는 이유가 오직 하나로 좁혀지므로 단일 책임 원칙을 지키는 형태가 된다.
     UseCase 또는 TransactionalUseCase를 implements 하므로 execute 메서드를 반드시 구현한다.
     execute 메서드에 인자로 request DTO인 Port를 제공하고, 반환은 UseCaseDTO로 받는다. 만약 RemovePostService와 같이 execute 시 돌려받을 데이터가 없는 경우 void로 명시한다.
 
