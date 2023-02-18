@@ -34,7 +34,7 @@ It is my attempt to create Clean Architecture based application in Typescript.
     - Passport
     - Type
 - 각 서비스 Module에 DI 하는 로직을 갖는다.
-  - .RootModule
+  - .RootModule  
     모든 모듈을 일괄 imports하는 최상위 모듈이다. ApplicationServer와 TestServer에서 서버 객체를 생성하는 곳에서 인자로 활용된다.
   - InfrastructureModule
     - imports
@@ -78,14 +78,14 @@ It is my attempt to create Clean Architecture based application in Typescript.
     - Media File - Minio
       - MinioMediaFileStorageAdapter
         Minio 저장소로의 파일 upload, defineFileUploadDetails 메서드를 갖는다.
-  - UseCase input adapter
+  - UseCase input adapter  
     Controller에서 UseCase를 execute 하기 전에 execute 메서드 인자에 포함되는 adapter로, UseCase에서 실행하기 전에 adapter 데이터를 생성하는데, new 메서드를 통해 생성할 때(new 키워드가 아닌 직접 구현한 new 메서드) 데이터 유효성 검사(validate)를 한 데이터 객체이다.
 - Config - 서버 및 외부 DB의 설정 파일
   - ApiServerConfig
     서버의 호스트, 포트, 액세스 토큰, 액세스 토큰 TTL, 로깅 활성여부 등
   - DatabaseConfig
   - FileStorageConfig
-- Handler wrapper - NestJS
+- Handler wrapper - NestJS  
   @nestjs/cqrs의 `IQueryHandler`, `IEventHandler` 등의 인터페이스를 구현한다.
   이 CQRS는 반드시 Bounded Context에서만 사용해야 하고, 시스템 전체에서 사용해서는 안된다.
   CQRS는 요구사항이 많아 복잡해진 도메인 모델을 한결 쉽게 다루기 위해 Command(CUD)와 Query(Read)로 분리해 개별적으로 확장 및 최적화 전략 적용을 가능하게 해준다.
@@ -124,14 +124,14 @@ UseCase 구현체와 Command / Query / Event handler의 구현체를 갖는다.
 하나의 유스케이스로 특화된 도메인 서비스의 또 다른 장점으로는 동시 개발의 편의성이 있다. 기존의 계층형 아키텍처의 경우 여러 명이 하나의 서비스에 여러 개의 유스케이스를 추가해야 할 때, merge conflict가 발생하기 쉽고, 잘못된 코드를 이전의 상태로 되돌려야 할 때에도 문제가 발생할 수 있다. 반면 하나의 도메인 서비스가 하나의 유스케이스를 담당하도록 하면 기존의 문제는 사라지거나 경감될 것이다.
 
 - Service
-  - Handler
+  - Handler  
     각종 CQE 핸들러를 implements 받아 handle 메서드를 구현하는 서비스 클래스이다.
     컨트롤러에서 CQE send 요청을 보내면 이를 처리하는 공간이다.
     CQE 전달 및 수신 순서는 다음과 같다.
     NestWrapper{비즈니스*로직*이름}{C/Q/E}Handler.handle(…) →
     Handle{비즈니스*로직*이름}{C/Q/E}Service.handle(…)
-  - Usecase
-    CreateUserService, GetUserService, CreatePostService 등 각 서비스는 하나의 행위만 구현해 단일 책임 원칙을 지킨다.
+  - Usecase  
+    CreateUserService, GetUserService, CreatePostService 등 각 서비스는 하나의 행위만 담당한다. 하나의 컴포넌트를 변경해야 할 때 변경하는 이유가 오직 하나로 좁혀지므로 단일 책임 원칙을 지키는 형태가 된다.
     UseCase 또는 TransactionalUseCase를 implements 하므로 execute 메서드를 반드시 구현한다.
     execute 메서드에 인자로 request DTO인 Port를 제공하고, 반환은 UseCaseDTO로 받는다. 만약 RemovePostService와 같이 execute 시 돌려받을 데이터가 없는 경우 void로 명시한다.
 
